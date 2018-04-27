@@ -1,0 +1,27 @@
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  height: 20px;
+  width: 150px;
+  margin: 50px;
+}
+progress::-webkit-progress-bar {
+  background: #ccc;
+  box-shadow: inset 0px 0px 10px 5px #aaa;
+  border-radius: 20px;
+}
+progress::-webkit-progress-value {
+  background-image: repeating-linear-gradient(45deg, #FF94AA, #FF94AA 8px, #FF7799 8px, #FF7799 16px);
+  border-radius: 20px;
+}
+progress::before {
+  content: attr(value);
+  position: relative;
+  left: 70%;
+  display: block;
+  margin: 5px;
+  font: caption;
+  font-size: 20px;
+  color: #FF7799;
+}

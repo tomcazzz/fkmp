@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Projekte</div>
+  <div class="panel-body">
+    <div class="col-md-6">
+      <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
+        <thead>
+          <tr>
+              <th class="col-sm-2">#</th>
+              <th class="col-sm-5">Projekt</th>
+              <th class="col-sm-5">Anzahl Songs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects, index as i">  
+            <td>{{ (i+1) }}</td>
+            <td><a class="project-item" [project]="project" [routerLink]="project.id"></a></td>
+            <td>{{project.GetNOfSongs()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

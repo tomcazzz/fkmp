@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Projekt: {{project.title}} / Songs</div>
+  <div class="panel-body">
+    <div class="col-md-6">
+      <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Song</th>
+              <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let song of songs, index as i">
+            <td>{{ (i+1) }}</td>
+            <td><a class="song-item" [song]="song" [routerLink]="song.id"></a></td>
+            <td><meter min=0 max=6 value={{song.status}} optimum=6 high=5 low=3></meter></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <a href="#" class="badge badge-dark" routerLink="/projects">Zurück</a>
+  <br>
+  <br>
+</div>
+
+

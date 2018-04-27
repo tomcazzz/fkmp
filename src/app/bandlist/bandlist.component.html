@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Bands</div>
+  <div class="panel-body">
+    <div class="col-md-6">
+      <app-bandform></app-bandform>
+      <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
+        <thead>
+          <tr>
+              <th>Band</th>
+              <th>Projekte</th>
+              <th>Songs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let band of bands">
+            <td><a class="band-item" [band]="band" [routerLink]="band.id"></a></td>
+            <td>{{band.GetNOfProjects()}}</td>
+            <td>{{band.GetNOfSongs()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+          
+
