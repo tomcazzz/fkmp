@@ -26,6 +26,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { DisclaimerComponent } from './disclaimer/disclaimer.component';
 import { BandformComponent } from './bandform/bandform.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { BandformComponent } from './bandform/bandform.component';
     ContactComponent,
     ImprintComponent,
     DisclaimerComponent,
-    BandformComponent
+    BandformComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
