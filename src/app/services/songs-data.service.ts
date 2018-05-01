@@ -30,13 +30,11 @@ export class SongsDataService {
 
   // Gibt den Song mit der ID id zurück
   getSingle(id: number) {
-    console.log("Songs getSingle. ID: " + id);
     return this.songs.find(song => song.id == id);
   }
 
   getProjectSongs(projectid: number) 
   {
-    console.log("projectid: " + projectid);
     function isOfProject(element) 
     {
       return (element.projectid == this); 

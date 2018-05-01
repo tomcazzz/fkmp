@@ -1,13 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">Band: {{band.title}} / Projekte</div>
   <div class="panel-body">
-    <div class="col-md-6">
+    <div>
       <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
         <thead>
           <tr>
-              <th>#</th>
-              <th>Projekt</th>
-              <th>Anzahl Songs</th>
+              <th class="col_md_1">#</th>
+              <th class="col_md_5">Projekt</th>
+              <th class="col_md_2">Anzahl Songs</th>
           </tr>
         </thead>
         <tbody>
@@ -19,9 +19,8 @@
         </tbody>
       </table>
     </div>
+    <a href="#" class="badge badge-dark" routerLink="/bands">Zurück</a>
   </div>
-  <a href="#" class="badge badge-dark" routerLink="/bands">Zurück</a>
-  <br>
   <br>
 </div>
 

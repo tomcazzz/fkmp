@@ -10,9 +10,9 @@ export class BandsDataService {
     console.log("BandsDataService: get Bands Data")
 
     this.bands = [
-      new Band(1,"Tortuga",fkProjectsDS.getBandProjects(1)),
-      new Band(2,"Telemotor",fkProjectsDS.getBandProjects(2)),
-      new Band(3,"Rosenhain",fkProjectsDS.getBandProjects(3))
+      new Band("Tortuga",fkProjectsDS.getBandProjects(1)),
+      new Band("Telemotor",fkProjectsDS.getBandProjects(2)),
+      new Band("Rosenhain",fkProjectsDS.getBandProjects(3))
     ];
   }
 
@@ -21,18 +21,35 @@ export class BandsDataService {
     return this.bands;
   }
 
-  // Gibt die Band mit dem Namen title zurück
+  // Gibt die Band mit der ID id zurück
   getSingle(id: number) {
     return this.bands.find(band => band.id == id);
   }
 
   addBand(newBand: Band) {
-    if(this.bands.filter(band => band.title == newBand.title))
+    let retValue: boolean = true;
+
+    if(this.bands.find(band => band.title === newBand.title))
     {
-      console.log("Band mit gleichem Name existiert bereits!")
-      return;
+      retValue = false;
     }
-    this.bands.push(newBand);
-    console.log("Band " + newBand.title + " added");
+    else 
+    {
+      this.bands.push(newBand);
+    }
+    return retValue;
+  }
+
+  removeBand(id: number) {
+    let retValue: boolean = true;
+    let bandsLength: number = this.bands.length;
+    console.log("Bands DataService. ID: " + id + "; Anzahl Bands: " + this.bands.length);
+    this.bands = this.bands.filter(band => band.id != id);
+    if(this.bands.length !== bandsLength - 1) 
+      retValue = false;
+    //if(this.bands.splice(this.bands.indexOf(this.bands[id]),1))
+    console.log("Anzahl Bands: " + this.bands.length);
+
+    return retValue;
   }
 }

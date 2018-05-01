@@ -9,17 +9,31 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./bandform.component.css']
 })
 export class BandformComponent implements OnInit {
-  //@ViewChild('form') form: NgForm;
-  sendBandData(value: any) {
-    console.log(value);
-    console.log(value.bandname);
-    this.fkBandsDS.addBand(new Band(5,value.bandname));
+  private showBandAddForm: boolean = true;
+  private showPositiveAlert: boolean = false;
+  private showNegativeAlert: boolean = false;
 
+  @ViewChild('form') form: NgForm;
+  addBandData(value: any) {
+    this.showPositiveAlert = this.fkBandsDS.addBand(new Band(value.bandname));
+    this.showNegativeAlert = !this.showPositiveAlert;
+
+    setTimeout(() => {
+      this.showPositiveAlert = false; 
+      this.showNegativeAlert = false;
+      this.form.reset();
+      this.showBandAddForm = false;
+    }, 3000);
   }
+
+  addBand(band: Band) {
+    this.fkBandsDS.addBand(band);
+  }
+
   constructor(private fkBandsDS: BandsDataService) { }
 
   ngOnInit() {
-    
+    this.showBandAddForm = true;  
   }
 
 }

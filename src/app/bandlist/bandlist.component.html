@@ -3,19 +3,38 @@
   <div class="panel-body">
     <div class="col-md-6">
       <app-bandform></app-bandform>
+      <div *ngIf="showPositiveDeleteAlert" class="alert alert-success" role="alert">
+        Die Band wurde erfolgreich gelöscht!
+      </div>
       <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
         <thead>
           <tr>
-              <th>Band</th>
-              <th>Projekte</th>
-              <th>Songs</th>
+              <th class="col_md_1">#</th>
+              <th class="col_md_2">Band</th>
+              <th class="col_md_1">Projekte</th>
+              <th class="col_md_1">Songs</th>
+              <th class="col_md_1">Aktionen</th>
+              <th class="col_md_1"></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let band of bands">
-            <td><a class="band-item" [band]="band" [routerLink]="band.id"></a></td>
+          <tr *ngFor="let band of bands, index as i">
+            <td>{{ (i+1) }}</td>
+            <td>
+              <a class="band-item" [band]="band" [routerLink]="band.id"></a>
+            </td>
             <td>{{band.GetNOfProjects()}}</td>
             <td>{{band.GetNOfSongs()}}</td>
+            <td>
+              <a href="#" class="badge badge-dark">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>     
+              </a>  
+            </td>
+            <td>
+              <a (click)="removeBand(band.id)" class="badge badge-dark">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>      
+              </a>            
+            </td>
           </tr>
         </tbody>
       </table>

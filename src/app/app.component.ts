@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RoutingState } from './services/routingstate.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'My First Angular App';
+  constructor(routingState: RoutingState) {
+    routingState.loadRouting();
+  }
 }

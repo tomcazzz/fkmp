@@ -21,8 +21,6 @@ export class ProjectsDataService {
       new Project(5,2,"Telemotor 2"),
       new Project(6,3,"Best Songs"),
     ];
-  
-    console.log("project title: " + this.projects[0].title)
   }
 
   getAll() {
@@ -31,7 +29,6 @@ export class ProjectsDataService {
 
     // Gibt das Project mit der ID id zurück
     getSingle(id: number) {
-      console.log("Project.getSingle. ID: " + id);
       return this.projects.find(project => project.id == id);
     }
 

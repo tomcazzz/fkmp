@@ -6,9 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  public responsiveTopNavVisible: boolean = false;
 
   constructor() { }
 
+  showResponsiveMenu() {
+    this.responsiveTopNavVisible = !this.responsiveTopNavVisible;
+  }
   ngOnInit() {
   }
 

@@ -27,6 +27,8 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DisclaimerComponent } from './disclaimer/disclaimer.component';
 import { BandformComponent } from './bandform/bandform.component';
 import { HeaderComponent } from './header/header.component';
+import { RoutingState } from './services/routingstate.service';
+import { BandeditComponent } from './bandedit/bandedit.component';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { HeaderComponent } from './header/header.component';
     ImprintComponent,
     DisclaimerComponent,
     BandformComponent,
-    HeaderComponent
+    HeaderComponent,
+    BandeditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { HeaderComponent } from './header/header.component';
   providers: [
     BandsDataService,
     ProjectsDataService,
-    SongsDataService
+    SongsDataService,
+    RoutingState
   ],
   bootstrap: [AppComponent]
 })

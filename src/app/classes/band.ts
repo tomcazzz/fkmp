@@ -1,12 +1,13 @@
 import {Project} from "./project"
 
 export class Band {
+    static counter: number = 0;
     id: number;
     title: string;
     projects: Project[];
 
-    constructor(id: number, title: string, projects?: Project[]) {
-        this.id = id;
+    constructor(title: string, projects?: Project[]) {
+        this.id = ++Band.counter;
         this.title = title;
         this.projects = projects;
 
