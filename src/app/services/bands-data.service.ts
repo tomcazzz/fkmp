@@ -7,12 +7,12 @@ export class BandsDataService {
   bands: Band[];
 
   constructor(private fkProjectsDS: ProjectsDataService) { 
-    console.log("BandsDataService: get Bands Data")
+    //console.log("BandsDataService:Constructor");
 
     this.bands = [
-      new Band("Tortuga",fkProjectsDS.getBandProjects(1)),
-      new Band("Telemotor",fkProjectsDS.getBandProjects(2)),
-      new Band("Rosenhain",fkProjectsDS.getBandProjects(3))
+      new Band("Tortuga","Augsburg",fkProjectsDS.getBandProjects(1)),
+      new Band("Telemotor","Augsburg",fkProjectsDS.getBandProjects(2)),
+      new Band("Rosenhain","Augsburg",fkProjectsDS.getBandProjects(3))
     ];
   }
 
@@ -40,15 +40,29 @@ export class BandsDataService {
     return retValue;
   }
 
+  editBand(id: number, updateBand: Band) {
+    let retValue: boolean = true;
+
+    try {
+      this.bands[this.bands.findIndex(band => band.id === id)].title = updateBand.title;
+      this.bands[this.bands.findIndex(band => band.id === id)].city = updateBand.city;
+    }
+    catch(err) {
+      console.log(err.message);
+      retValue = false;
+    }
+    finally {
+      return retValue;
+    }
+  }
+
   removeBand(id: number) {
     let retValue: boolean = true;
     let bandsLength: number = this.bands.length;
-    console.log("Bands DataService. ID: " + id + "; Anzahl Bands: " + this.bands.length);
+
     this.bands = this.bands.filter(band => band.id != id);
     if(this.bands.length !== bandsLength - 1) 
       retValue = false;
-    //if(this.bands.splice(this.bands.indexOf(this.bands[id]),1))
-    console.log("Anzahl Bands: " + this.bands.length);
 
     return retValue;
   }

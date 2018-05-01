@@ -4,14 +4,14 @@ export class Band {
     static counter: number = 0;
     id: number;
     title: string;
+    city: string;
     projects: Project[];
 
-    constructor(title: string, projects?: Project[]) {
+    constructor(title: string, city: string, projects?: Project[]) {
         this.id = ++Band.counter;
         this.title = title;
+        this.city = city;
         this.projects = projects;
-
-        //console.log("Projects Länge: " + this.projects.length);
     }
 
     GetNOfProjects() {

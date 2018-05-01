@@ -16,7 +16,9 @@ export class BandlistComponent implements OnInit {
   constructor(
     private fkBandsDS: BandsDataService,
     private router: Router,
-    private route: ActivatedRoute ) { }
+    private route: ActivatedRoute ) { 
+      //console.log("BandList:Constructor");
+    }
 
   ngOnInit() {
     this.bands = this.fkBandsDS.getAll();
@@ -25,10 +27,8 @@ export class BandlistComponent implements OnInit {
   removeBand(id: number) {
     let lOK:boolean = false;
 
-    console.log("ID der zu löschenden Band: " + id);
     if (confirm('Band wirklich löschen?')) {
       lOK = this.fkBandsDS.removeBand(id);
-      console.log("lOK: " + lOK);
       
       if(lOK)
       {
@@ -38,7 +38,6 @@ export class BandlistComponent implements OnInit {
         }, 3000);
       }
     }
-    //this.router.navigate(['./'], { relativeTo: this.route });
   }
 }
 
