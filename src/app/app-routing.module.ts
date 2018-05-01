@@ -11,6 +11,8 @@ import { SonglistComponent } from './songlist/songlist.component';
 import { ContactComponent } from './contact/contact.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { DisclaimerComponent } from './disclaimer/disclaimer.component';
+import { BandformComponent } from './bandform/bandform.component';
+import { BandResolverService } from './services/band-resolver.service';
 
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
@@ -19,6 +21,11 @@ const routes: Routes = [
     {path: 'bands/:id', component: BandComponent},
     {path: 'bands/:id/:id', component: ProjectComponent},
     {path: 'bands/:id/:id/:id', component: SongComponent},
+    {path: 'bandform/:id/edit', 
+            component: BandformComponent,
+            resolve: {
+                band: BandResolverService}
+    },
     {path: 'projects', component: ProjectlistComponent},
     {path: 'projects/:id', component: ProjectComponent},
     {path: 'projects/:id/:id', component: SongComponent},

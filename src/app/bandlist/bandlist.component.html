@@ -26,7 +26,7 @@
             <td>{{band.GetNOfProjects()}}</td>
             <td>{{band.GetNOfSongs()}}</td>
             <td>
-              <a href="#" class="badge badge-dark">
+              <a [routerLink]="['../bandform',band.id, 'edit']" class="badge badge-dark">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>     
               </a>  
             </td>

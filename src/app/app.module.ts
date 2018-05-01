@@ -29,6 +29,7 @@ import { BandformComponent } from './bandform/bandform.component';
 import { HeaderComponent } from './header/header.component';
 import { RoutingState } from './services/routingstate.service';
 import { BandeditComponent } from './bandedit/bandedit.component';
+import { BandResolverService } from './services/band-resolver.service';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { BandeditComponent } from './bandedit/bandedit.component';
     BandsDataService,
     ProjectsDataService,
     SongsDataService,
-    RoutingState
+    RoutingState,
+    BandResolverService
   ],
   bootstrap: [AppComponent]
 })
