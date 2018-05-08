@@ -13,11 +13,14 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DisclaimerComponent } from './disclaimer/disclaimer.component';
 import { BandformComponent } from './bandform/bandform.component';
 import { BandResolverService } from './services/band-resolver.service';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-    {path: 'bands', component: BandlistComponent},
+    {path: 'bands', component: BandlistComponent, canActivate: [AuthGuard]},
     {path: 'bands/:id', component: BandComponent},
     {path: 'bands/:id/:id', component: ProjectComponent},
     {path: 'bands/:id/:id/:id', component: SongComponent},
@@ -32,7 +35,9 @@ const routes: Routes = [
     {path: 'songs', component: SonglistComponent},
     {path: 'songs/:id', component: SongComponent},
     {path: 'users', component: UserlistComponent},
-    {path: 'contact', component: ContactComponent},    
+    {path: 'contact', component: ContactComponent}, 
+    {path: 'register', component: RegisterComponent}, 
+    {path: 'login', component: LoginComponent},   
     {path: 'imprint', component: ImprintComponent},
     {path: 'disclaimer', component: DisclaimerComponent}
 

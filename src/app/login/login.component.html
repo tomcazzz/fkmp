@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Login</div>
+  <div class="panel-body">
+    <form class="form-horizontal"
+    [formGroup]="loginForm"
+    (ngSubmit)="submitLoginForm()">
+      <div class="form-group">
+        <label class="control-label col-sm-2">Benutzername:</label>
+        <div class="col-sm-3"> 
+          <input class="form-control" formControlName="username" type="text" 
+                placeholder="Bitte Benutzernamen eingeben"
+                required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Passwort:</label>
+        <div class="col-sm-3"> 
+          <input class="form-control" formControlName="password" type="password" 
+                placeholder="Bitte Passwort eingeben"
+                required>
+        </div>
+      </div>
+      <div class="form-group"> 
+        <div class="col-sm-offset-2 col-sm-3">
+          <button type="submit" class="btn btn-warning" 
+          [disabled]="loading"
+          >Anmelden</button>
+          <img *ngIf="loading" src="../../assets/spinningLoader.gif" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

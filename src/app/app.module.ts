@@ -30,6 +30,17 @@ import { HeaderComponent } from './header/header.component';
 import { RoutingState } from './services/routingstate.service';
 import { BandeditComponent } from './bandedit/bandedit.component';
 import { BandResolverService } from './services/band-resolver.service';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './services/alert.service';
+import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './classes/jwtinterceptor';
+import { fakeBackendProvider } from './classes/fakebandendinterceptor';
+import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -54,20 +65,37 @@ import { BandResolverService } from './services/band-resolver.service';
     DisclaimerComponent,
     BandformComponent,
     HeaderComponent,
-    BandeditComponent
+    BandeditComponent,
+    LoginComponent,
+    AlertComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    DateValueAccessorModule
+    DateValueAccessorModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     BandsDataService,
     ProjectsDataService,
     SongsDataService,
     RoutingState,
-    BandResolverService
+    BandResolverService,
+    AlertService,
+    UserService,
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: JwtInterceptor,
+        multi: true
+    },,
+    AuthenticationService,
+    AuthGuard,
+
+    // provider used to create fake backend
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
