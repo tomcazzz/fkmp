@@ -10,6 +10,8 @@ export class BandResolverService implements Resolve<Band> {
   constructor(private fkBandsDS: BandsDataService) { }
 
   resolve(route: ActivatedRouteSnapshot): Band {
-    return this.fkBandsDS.getSingle(route.params['id']);
+    //return this.fkBandsDS.getSingle(route.params['id']);
+    // test:
+    return new Band('','');
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from '../classes/song';
 import { SongsDataService } from '../services/songs-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { RoutingState } from '../services/routingstate.service';
+import { RoutingstateService } from '../services/routingstate.service';
 
 @Component({
   selector: 'app-song',
@@ -16,7 +16,7 @@ export class SongComponent implements OnInit {
   constructor(
     private fkSongsDS: SongsDataService,
     private route: ActivatedRoute,
-    private routingState: RoutingState) { }
+    private routingState: RoutingstateService) { }
 
   ngOnInit() {
     const params = this.route.snapshot.params;

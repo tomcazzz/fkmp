@@ -23,7 +23,7 @@ export class BandComponent implements OnInit {
 
   ngOnInit() {
     const params = this.route.snapshot.params;
-    this.band = this.fkBandDS.getSingle(params['id']);
+    this.fkBandDS.getSingle(params['id']).subscribe((band: Band) => this.band = band);
     this.projects = this.fkProjectsDS.getBandProjects(params['id']);
   }
 }

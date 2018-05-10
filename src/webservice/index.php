@@ -2,7 +2,7 @@
 require_once "./includes/config.php";
 require_once "./includes/dbconnection.php";
 
-$debug = true;
+$debug = false;
 
 if (isset($_GET['method']))
 {
@@ -11,7 +11,7 @@ if (isset($_GET['method']))
 	
 	// establish db connection
 	$dbconnection = new DBConnection();
-	$dbconnection->connect($CONFIG->host,$CONFIG->db,$CONFIG->user,$CONFIG->password);
+	$dbconnection->connect($CONFIG->host,$CONFIG->user,$CONFIG->password,$CONFIG->db);
 	
 	// getBands
 	if ($_GET['method'] == 'getBands')
@@ -20,20 +20,11 @@ if (isset($_GET['method']))
 		if (isset($_GET['param']))
 		{
 			$sQuery = "select 
-			jos_eventlist_events.title as gig_name, 
-			jos_eventlist_events.dates as gig_date,
-			subtime(jos_eventlist_events.times, '01:45:00.000000') as gig_admittance,
-			jos_eventlist_events.times as gig_begin, 
-			jos_eventlist_venues.city as gig_location, 
-			jos_eventlist_events.datdescription as gig_comment, 
-			concat(jos_eventlist_venues.plz,' ',jos_eventlist_venues.city,' ',jos_eventlist_venues.street) as gig_address,
-			if(jos_eventlist_events.published = 1,0,1) as gig_archived,
-			jos_eventlist_events.created as gig_created, 	
-			jos_eventlist_events.modified as gig_modified 
-			from jos_eventlist_events 
-			join jos_eventlist_venues on jos_eventlist_venues.id = jos_eventlist_events.locid";
+			fkmp_band_id as id,
+			fkmp_band_title as title
+			from fkmp_band";
 			
-			$sOrderBy = "order by jos_eventlist_events.created desc";
+			$sOrderBy = "order by id asc";
 			
 			if($debug) echo "<p>Param: " . $_GET['param'] ."</p>";
 			
@@ -42,10 +33,19 @@ if (isset($_GET['method']))
 				case 'all':
 					$sWhere = "";		
 					break;
-				
+				case 'single':
+					if (isset($_GET['id']))
+					{
+						$sWhere = "where fkmp_band_id = '".$_GET['id']."'";
+					}
+
+					break;
 				default: 
 					$sWhere = "";		
 			}
+			if($debug) 
+				echo "<p>".$sQuery . ' ' . $sWhere . ' ' . $sOrderBy."</p>";
+				
 			$result = $dbconnection->query($sQuery . ' ' . $sWhere . ' ' . $sOrderBy);
 		}
 		else die('Error: Please provide param for method getBands');
@@ -349,65 +349,41 @@ if (isset($_GET['method']))
 	*/
 	if (isset($result))
 	{
+		/*
+		if($debug)
+			echo "result is set<br><br>";
+		*/
+
 		// return json format
 		$items = array();
 		
 		if(is_array($result)) // result comes from newsletter method
 		{
-			if($debug) echo "<p>newsletter</p>";
+			if($debug) echo "Array<br>";
 			header('Content-type: application/json');
 			$json =  json_encode($result);
 		}
-		else if(mysql_num_rows($result)) // result comes from get methods
+		else if(mysqli_num_rows($result)) // result comes from get methods
 		{
-			if($debug) echo "<p>database query</p>";
-			while($item = mysql_fetch_assoc($result)) 
+			while($item = mysqli_fetch_assoc($result)) 
 			{
-				// trim leading end ending spaces and eliminate all HTML Tags
-				foreach ($item as &$value) 
-				{			
-					$value = trim(strip_tags($value));
-					
-					// 2013-04-12 TW: Ersetzen des doppelten Zeilenumbruchs (\r\n), der durch die Weiterlesen...-Thematik in Joomla entsteht, durch ein Leerzeichen
-					if($_GET['method'] == 'getNews') $value = str_replace("\r\n\r\n", ' ', $value);					
+				if($debug) {
+					echo "ID: " . $item["id"]. "<br>";
+					echo "Title: " . $item["title"]. "<br>";
 				}
-				$items[] = array('item'=>$item);	
+				//$items[] = array('item'=>$item);	
+				$items[] = $item;
+				
 			}
-			header('Content-type: application/json');
-			$json =  json_encode(array('items'=>$items));
+			//header('Content-type: application/json');
+			//$json =  json_encode(array('items'=>$items));
+			$json = json_encode($items);
 		}
 		else die('Error: no data found for query');
 
-		// 2013-01-14 TW
-		if (isset($_GET['jsonp_callback_news'])) // web app jsonp news -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_news'] ."(". $json .");";		
-		}
-		else if (isset($_GET['jsonp_callback_gigs'])) // web app jsonp gigs -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_gigs'] ."(". $json .");";		
-		}	
-		else if (isset($_GET['jsonp_callback_links'])) // web app jsonp links -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_links'] ."(". $json .");";		
-		}	
-		else if (isset($_GET['jsonp_callback_videos'])) // web app jsonp links -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_videos'] ."(". $json .");";		
-		}			
-		else if (isset($_GET['jsonp_callback_newsletter'])) // web app jsonp set newsletter result -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_newsletter'] ."(". $json .");";		
-		}	
-		else if (isset($_GET['jsonp_callback_galleries'])) // web app jsonp galleries -> return function for cross domain compatibility
-		{
-			echo $_GET['jsonp_callback_galleries'] ."(". $json .");";		
-		}			
-		else // normal call from android app		
-		{
-			echo $json;		
-		}
+		echo $json;		
 	}
+
 	$dbconnection->close();
 }
 ?>

@@ -11,7 +11,6 @@ export class ProjectsDataService {
     private fkSongsDS: SongsDataService,
     //private fkBandsDS: BandsDataService
   ) { 
-    console.log("ProjectsDataService: get Project Data")
     
     this.projects = [
       new Project(1,1,"Nothing Is Like It Seems To Be",this.fkSongsDS.getProjectSongs(1)),

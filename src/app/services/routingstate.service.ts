@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 
 
 @Injectable()
-export class RoutingState {
+export class RoutingstateService {
   private history = [];
 
   constructor(

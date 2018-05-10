@@ -5,7 +5,7 @@ import { Project } from '../classes/project';
 import { ProjectsDataService } from '../services/projects-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Band } from '../classes/band';
-import { RoutingState } from '../services/routingstate.service';
+import { RoutingstateService } from '../services/routingstate.service';
 
 @Component({
   selector: 'app-project',
@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit {
     private fkProjectsDS: ProjectsDataService,
     private fkSongsDS: SongsDataService,
     private route: ActivatedRoute,
-    private routingState: RoutingState
+    private routingState: RoutingstateService
   ) { }
 
   ngOnInit() {

@@ -27,7 +27,7 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DisclaimerComponent } from './disclaimer/disclaimer.component';
 import { BandformComponent } from './bandform/bandform.component';
 import { HeaderComponent } from './header/header.component';
-import { RoutingState } from './services/routingstate.service';
+import { RoutingstateService } from './services/routingstate.service';
 import { BandeditComponent } from './bandedit/bandedit.component';
 import { BandResolverService } from './services/band-resolver.service';
 import { LoginComponent } from './login/login.component';
@@ -82,7 +82,7 @@ import { RegisterComponent } from './register/register.component';
     BandsDataService,
     ProjectsDataService,
     SongsDataService,
-    RoutingState,
+    RoutingstateService,
     BandResolverService,
     AlertService,
     UserService,

@@ -4,7 +4,13 @@ export class Band {
     static counter: number = 0;
     id: number;
     title: string;
+    phone: string;
+    email: string;
     city: string;
+    street: string;
+    zip: string;
+    cntct_fname: string;
+    cntct_lname: string;
     projects: Project[];
 
     constructor(title: string, city: string, projects?: Project[]) {

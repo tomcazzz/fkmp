@@ -6,8 +6,6 @@ export class SongsDataService {
   songs: Song[];
 
   constructor() { 
-    console.log("SongsDataService: get Songs Data")
-
     this.songs = [
       new Song(1,1,"Groundlicker",6),
       new Song(2,1,"Arturo's Jazz Bar",6),
@@ -19,8 +17,6 @@ export class SongsDataService {
       new Song(8,3,"Anne",2),
       new Song(9,3,"Devil",4)
     ];
-
-    console.log("SongsDS Constructor. Songs: " + this.songs.length);
   }
 
   // Gibt alle Bands zurück
