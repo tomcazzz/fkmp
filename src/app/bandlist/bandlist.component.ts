@@ -12,6 +12,7 @@ import { BandRaw } from '../classes/bandraw';
 })
 
 export class BandlistComponent implements OnInit {
+  private loading: boolean = true;
   public bands: Band[];
   private showPositiveDeleteAlert: boolean = false;
 
@@ -22,7 +23,10 @@ export class BandlistComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.fkBandsDS.getAll().subscribe((bands: Band[]) => this.bands = bands);
+    this.fkBandsDS.getAll().subscribe((bands: Band[]) => {
+      this.bands = bands;
+      this.loading = false;
+    });
   }
 
   removeBand(id: number) {

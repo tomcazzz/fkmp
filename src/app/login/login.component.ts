@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitLoginForm() {
-    console.log("this.loginForm.value.username: " + this.loginForm.value.username);
+    //console.log("this.loginForm.value.username: " + this.loginForm.value.username);
     this.loading = true;
     this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
         .subscribe(

@@ -3,6 +3,7 @@
   <div class="panel-heading">Band: {{band?.title}} / Projekte</div> 
   <div class="panel-body">
     <div>
+        <img *ngIf="loading" src="../../assets/spinningLoader.gif" />
       <table cellpadding="10px" class="table table-sm table-striped table-hover table-condensed table-responsive">
         <thead>
           <tr>

@@ -3,6 +3,10 @@
   <div class="panel-body">
     <!--<div class="col-md-6" *ngIf="bands$ | async as bands">-->
     <div class="col-md-6">
+      <div *ngIf="loading">
+        <img src="../../assets/spinningLoader.gif" />
+        <br>
+      </div>
       <app-bandform></app-bandform>
       <div *ngIf="showPositiveDeleteAlert" class="alert alert-success" role="alert">
         Die Band wurde erfolgreich gelöscht!

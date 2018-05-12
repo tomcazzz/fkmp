@@ -13,6 +13,7 @@ import { BandRaw } from '../classes/bandraw';
 })
 
 export class BandComponent implements OnInit {
+  private loading: boolean = true;
   band: Band;
   projects: Project[];
 
@@ -28,9 +29,8 @@ export class BandComponent implements OnInit {
     //this.fkBandDS.getSingle(params['id']).subscribe(data => console.log(data["title"]));
     ///*
     this.fkBandDS.getSingle(params['id']).subscribe((band: Band) => {
-      //console.log("Typ: " + typeof(band));
-      console.log("band.title: " + band["title"]);
       this.band = band;
+      this.loading = false;
     });
     //*/
     //console.log("Band.title: " + this.band.title);
