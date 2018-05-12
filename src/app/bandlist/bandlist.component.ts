@@ -13,7 +13,6 @@ import { BandRaw } from '../classes/bandraw';
 
 export class BandlistComponent implements OnInit {
   public bands: Band[];
-  //public bands$: Observable<Band[]>;
   private showPositiveDeleteAlert: boolean = false;
 
   constructor(
@@ -23,9 +22,7 @@ export class BandlistComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.fkBandsDS.getAll().subscribe((bands: Band[]) => {
-      this.bands = bands;
-    })
+    this.fkBandsDS.getAll().subscribe((bands: Band[]) => this.bands = bands);
   }
 
   removeBand(id: number) {

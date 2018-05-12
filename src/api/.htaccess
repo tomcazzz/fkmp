@@ -1,0 +1,13 @@
+# Turn on the rewrite engine
+RewriteEngine On
+
+# Rewrite rules, map neat URL to internal URL
+RewriteRule ^bands/$ index.php?method=getBands&param=all [l,nc,qsa]
+RewriteRule ^bands/([0-9]+)/?$ index.php?method=getBands&param=single&id=$1 [l,nc,qsa]
+
+# Note: L-flag causes mod_rewrite to stop processing the rule set -> if rule matches, no further rules will be processed.
+# Note: NC-flag causes the RewriteRule to be matched in a case-insensitive manner.
+# Note: When the replacement URI contains a query string, the default behavior of RewriteRule is to discard the existing query string, and replace it with the newly generated one. Using the [QSA] flag causes the query strings to be combined.
+
+
+

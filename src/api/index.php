@@ -45,7 +45,7 @@ if (isset($_GET['method']))
 			}
 			if($debug) 
 				echo "<p>".$sQuery . ' ' . $sWhere . ' ' . $sOrderBy."</p>";
-				
+
 			$result = $dbconnection->query($sQuery . ' ' . $sWhere . ' ' . $sOrderBy);
 		}
 		else die('Error: Please provide param for method getBands');
@@ -365,19 +365,27 @@ if (isset($_GET['method']))
 		}
 		else if(mysqli_num_rows($result)) // result comes from get methods
 		{
-			while($item = mysqli_fetch_assoc($result)) 
+			if(mysqli_num_rows($result) == 1)
 			{
-				if($debug) {
-					echo "ID: " . $item["id"]. "<br>";
-					echo "Title: " . $item["title"]. "<br>";
-				}
-				//$items[] = array('item'=>$item);	
-				$items[] = $item;
-				
+				$item = mysqli_fetch_assoc($result);
+				$json = json_encode($item);	
 			}
-			//header('Content-type: application/json');
-			//$json =  json_encode(array('items'=>$items));
-			$json = json_encode($items);
+			else
+			{
+				while($item = mysqli_fetch_assoc($result)) 
+				{
+					if($debug) {
+						echo "ID: " . $item["id"]. "<br>";
+						echo "Title: " . $item["title"]. "<br>";
+					}
+					//$items[] = array('item'=>$item);	
+					$items[] = $item;
+					
+				}
+				//header('Content-type: application/json');
+				//$json =  json_encode(array('items'=>$items));
+				$json = json_encode($items);
+			}
 		}
 		else die('Error: no data found for query');
 

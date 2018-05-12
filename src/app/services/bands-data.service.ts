@@ -9,7 +9,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class BandsDataService {
-  private api: string = "http://www.findelkind-records.de/api/index.php";
+  //private api: string = "http://www.findelkind-records.de/api/index.php";
+  private api: string = "http://www.findelkind-records.de/api/";
   //bands: Band[];
 
   constructor(private fkProjectsDS: ProjectsDataService, private http: HttpClient) { 
@@ -25,13 +26,14 @@ export class BandsDataService {
 
   // Gibt alle Bands zurück
   getAll(): Observable<Array<Band>> {
-    const params = "?method=getBands&param=all";
+    const params = "bands/";
 
     return this.http.get<BandRaw[]>(this.api + params)
             .pipe(
               retry(3),
-              map(rawBands => rawBands
-                .map(rawBand => BandFactory.newBand(rawBand)),
+              map(rawBands => rawBands // Observable.map!
+                .map(rawBand => BandFactory.newBand(rawBand) // Array.map!
+                ),
               ),             
               catchError(this.errorHandler)
             );
@@ -39,7 +41,7 @@ export class BandsDataService {
 
   // Gibt die Band mit der ID id zurück
   getSingle(id: number): Observable<Band> {
-    const params = "?method=getBands&param=single&id="+id;
+    const params = "bands/"+id;
 
     return this.http.get<BandRaw>(this.api + params)
             .pipe(
@@ -47,7 +49,6 @@ export class BandsDataService {
               map(rawBand => BandFactory.newBand(rawBand)),
               catchError(this.errorHandler)
             );
-    //return this.bands.find(band => band.id == id);
   }
 
 
@@ -100,6 +101,7 @@ export class BandsDataService {
   }
   
   private errorHandler(error: Error | any): Observable<any> {
+    console.log("BandsDataService: HTTP ERROR");
     return Observable.throw(error);
   }
 }

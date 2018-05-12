@@ -13,8 +13,9 @@ export class Band {
     cntct_lname: string;
     projects: Project[];
 
-    constructor(title: string, city: string, projects?: Project[]) {
-        this.id = ++Band.counter;
+    constructor(id: number, title: string, city: string, projects?: Project[]) {
+        //this.id = ++Band.counter;
+        this.id = id;
         this.title = title;
         this.city = city;
         this.projects = projects;
