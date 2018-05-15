@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class BandsDataService {
-  //private api: string = "http://www.findelkind-records.de/api/index.php";
   private api: string = "http://www.findelkind-records.de/api/";
   //bands: Band[];
 
@@ -41,7 +40,7 @@ export class BandsDataService {
 
   // Gibt die Band mit der ID id zurück
   getSingle(id: number): Observable<Band> {
-    const params = "bands/"+id;
+    const params = "band/"+id;
 
     return this.http.get<BandRaw>(this.api + params)
             .pipe(
@@ -52,21 +51,18 @@ export class BandsDataService {
   }
 
 
-  addBand(newBand: Band) {
+  addBand(newBand: Band): Observable<any> {
+    const params = "band/";
 
-    let retValue: boolean = true;
-        /*
-    if(this.bands.find(band => band.title === newBand.title))
-    {
-      retValue = false;
-    }
-    else 
-    {
-      this.bands.push(newBand);
-    }
-        */
-    return retValue;
-
+    return this.http.post(this.api + params,JSON.stringify(newBand))
+            .pipe(
+              map(response => {
+                console.log("response[status]: " + response['status']);
+                console.log("response[status_message]: " + response['status_message']);
+                console.log("response[data]: " + response['data']);
+              }),
+              catchError(this.errorHandler),           
+            );
   }
   
   editBand(id: number, updateBand: Band) {

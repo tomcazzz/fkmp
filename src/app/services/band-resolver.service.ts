@@ -3,6 +3,7 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Band } from '../classes/band';
 import { BandsDataService } from './bands-data.service';
 import { Observable } from 'rxjs/Observable';
+import { BandFactory } from '../classes/bandfactory';
 
 @Injectable()
 export class BandResolverService implements Resolve<Band> {
@@ -12,6 +13,6 @@ export class BandResolverService implements Resolve<Band> {
   resolve(route: ActivatedRouteSnapshot): Band {
     //return this.fkBandsDS.getSingle(route.params['id']);
     // test:
-    return new Band('','');
+    return BandFactory.empty();
   }
 }

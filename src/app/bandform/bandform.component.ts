@@ -3,6 +3,7 @@ import { BandsDataService } from '../services/bands-data.service';
 import { Band } from '../classes/band';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { BandFactory } from '../classes/bandfactory';
 
 @Component({
   selector: 'app-bandform',
@@ -31,7 +32,7 @@ export class BandformComponent implements OnInit, AfterViewInit {
   submitData(value: any) {
     if(this.lEditMode)
     {
-      this.editShowPositiveAlert = this.fkBandsDS.editBand(this.band.id, new Band(value.title, value.city));
+      this.editShowPositiveAlert = this.fkBandsDS.editBand(this.band.id, new Band(value.id, value.title, value.city));
       this.editShowNegativeAlert = !this.editShowPositiveAlert
 
       setTimeout(() => {
@@ -49,8 +50,14 @@ export class BandformComponent implements OnInit, AfterViewInit {
       }, 3000);
     }
     else {
-      this.addShowPositiveAlert = this.fkBandsDS.addBand(new Band(value.title, value.city));
-      this.addShowNegativeAlert = !this.addShowPositiveAlert;
+      //this.addShowPositiveAlert = this.fkBandsDS.addBand(new Band(0, value.title, value.city));
+      //const band: Band = BandFactory.newBand(value);
+      this.fkBandsDS.addBand(new Band(0, value.title, value.city)).subscribe(response => {
+        console.log("BandFormComponent Subscribe return value: " + response)
+        this.addShowPositiveAlert = true;
+        this.addShowNegativeAlert = !this.addShowPositiveAlert;
+      });
+      
 
       setTimeout(() => {
         this.addShowPositiveAlert = false; 
@@ -58,7 +65,8 @@ export class BandformComponent implements OnInit, AfterViewInit {
         this.bandForm.reset();
 
         // Access DOM element (collapsible DIV) and collapse it
-        this.collapsible.nativeElement.className = "collapse";
+        //this.collapsible.nativeElement.className = "collapse";
+        this.closeForm();
       }, 3000);
     }
   }
@@ -72,6 +80,9 @@ export class BandformComponent implements OnInit, AfterViewInit {
 
       // Access DOM element (collapsible DIV) and collapse it
       this.collapsible.nativeElement.className = "collapse"; 
+
+      // => reload BandListComponent
+      this.router.navigate(['./'],{ relativeTo: this.route });  
     }
   }
 
@@ -83,7 +94,7 @@ export class BandformComponent implements OnInit, AfterViewInit {
       this.lEditMode = true;
     }
     else {
-      this.band = new Band("","");
+      this.band = BandFactory.empty();
     }
   }
 

@@ -20,7 +20,8 @@ import { RegisterComponent } from './register/register.component';
 const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-    {path: 'bands', component: BandlistComponent, canActivate: [AuthGuard]},
+    //{path: 'bands', component: BandlistComponent, canActivate: [AuthGuard]},
+    {path: 'bands', component: BandlistComponent},
     {path: 'bands/:id', component: BandComponent},
     {path: 'bands/:id/:id', component: ProjectComponent},
     {path: 'bands/:id/:id/:id', component: SongComponent},
